@@ -5,10 +5,11 @@ from dotenv import load_dotenv
 import streamlit as st
 
 # Load environment variables
+
+
 load_dotenv()
-GENAI_API_KEY='AIzaSyDRyICRGi6m6WuFvD9J9_XuiIU3o1B0vXE'
-# Configure Generative AI
-genai.configure(api_key=os.getenv("GENAI_API_KEY"))
+genai.configure(api_key=os.environ.get("GENAI_API_KEY", ""))
+
 model_name = "gemini-1.5-flash"
 
 # Memory file path
