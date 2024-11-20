@@ -58,10 +58,14 @@ def generate_response(current_style, context_log, user_input):
     dynamic_prompt += f"User: {user_input}\nAssistant:"
 
     try:
-        model = genai.GenerativeModel(model_name)
-        response = model.generate_content(dynamic_prompt)
-        if response and hasattr(response, "text"):
-            return response.text.strip()
+        response = genai.generate_text(
+            model=model_name,
+            prompt=dynamic_prompt,
+            temperature=0.7,
+            max_output_tokens=100,
+        )
+        if response and "candidates" in response:
+            return response["candidates"][0]["output"]
         return "(No response received)"
     except Exception as e:
         return f"Error: {e}"
